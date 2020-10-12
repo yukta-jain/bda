@@ -1,0 +1,15 @@
+use Database
+
+db.createCollection('Student')
+
+db.Student.insert({ RollNo:1, Age:20, Contact:1234, Name:"Brad", Email:"dog@gmail.com"})
+db.Student.insert({ RollNo:2, Age:21, Contact:5678, Name:"Nick", Email:"deer@gmail.com"})
+db.Student.insert({ RollNo:3, Age:20, Contact:3456, Name:"David", Email:"wolf@gmail.com"})
+
+db.Student.update({RollNo:2},{$set:{Email:"stag@gmail.com"}})
+db.Student.update({RollNo:1},{$set:{Name:"Chris"}})
+
+mongoexport -d Database -c Student -f RollNo,Age,Contact,Name,Email --type=csv -o Student.csv
+db.Student.drop()
+mongoimport -d Database -c Student --type csv --file
+
